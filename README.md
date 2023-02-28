@@ -49,11 +49,11 @@ yarn start
 
 <div>
 <h3>Android</h3>
-<img width="200" src="./assets/android-qrcode.svg">
+<img width="200" src="https://qr.expo.dev/eas-update?updateId=c87d0e04-9dfa-4c5f-be39-14511736833f&appScheme=exp&host=u.expo.dev">
 </div>
 <div>
 <h3>Ios</h3>
-<img width="200" src="./assets/ios-qrcode.svg">
+<img width="200" src="https://qr.expo.dev/eas-update?updateId=602e06e9-101a-48eb-a7c0-85168531c9bf&appScheme=exp&host=u.expo.dev">
 </div>
 
 <h2 id="tech">👾️ Tecnologias</h2>
