@@ -11,15 +11,15 @@
 
 ## 📃️ Conteúdo
 
-* [Objetivo](#Objetivo)
-* [Instalação](#Sobre)
-* [Como usar](#como-usar)
-* [Tecnologias](#tecnologias)
+* [Objetivo](#objetive)
+* [Instalação](#instalation)
+* [Como usar](#how-to)
+* [Tecnologias](#tech)
 
-## 🎯 Objetivo
-<p>Criar uma app que modifique as cores de 3 objetos 3d(cubo, cone e dodecaedro) e salve-os no firebase.</p>
+<h2 id="objetive">🎯 Objetivo</h2>
+<p>Criar uma app que modifique as cores de 3 objetos 3d(cubo, cone e dodecaedro) e salva-los no firebase.</p>
 
-## 🔧️ Instalação
+<h2 id="instalation">🔧️ Instalação</h2>
 <p>Primeiramente você precisará ter o expo-cli instalado globalmente, caso não tenha, execute</p>
 
 ```bash
@@ -43,7 +43,7 @@ yarn install
 yarn start
 ```
 
-## 🕹️ Como usar
+<h2 id="how-to">🕹️ Como usar</h2>
 
 <p>Para utilizar, baixe o app do expo go para  <a href="https://play.google.com/store/apps/details?id=host.exp.exponent&hl=pt_BR&gl=US" target="_blank"> Android</a> ou para <a href="https://apps.apple.com/br/app/expo-go/id982107779" target="_blank"> ios</a> e escaneie o QRCode do app</p>
 
@@ -56,7 +56,7 @@ yarn start
 <img width="200" src="./assets/ios-qrcode.svg">
 </div>
 
-## 👾️ Tecnologias
+<h2 id="tech">👾️ Tecnologias</h2>
 
 <div align="center">
 <img src="https://img.shields.io/badge/Expo-%23000020?logo=Expo&style=for-the-badge&logoColor=white">
