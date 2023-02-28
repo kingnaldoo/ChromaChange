@@ -9,12 +9,14 @@ import { Container } from "../../../global/styles/theme";
 const widthDimensions = Dimensions.get("window").width;
 const heightDimensions = Dimensions.get("window").height;
 
-export const ContainerLogin = styled(Container)`
+export const ContainerLogin = styled(View)`
+  flex: 1;
   background-color: ${({ theme }) => theme.colors.background};
-  padding-top: ${ms(40)}px;
 `;
 
-export const TopContent = styled(View)``;
+export const LoginContent = styled(Container)`
+  padding-top: ${ms(40)}px;
+`;
 
 export const IconBackground = styled(Icon).attrs({
   fill: "white",
@@ -33,12 +35,7 @@ export const LogoIcon = styled(Logo).attrs({
   margin-bottom: ${ms(15)}px;
 `;
 
-export const LoginContent = styled(ScrollView)`
-  flex: 1;
-`;
-
 export const Content = styled(View)`
-  height: ${heightDimensions}px;
   padding-top: ${ms(20)}px;
   padding-bottom: ${ms(20)}px;
   flex-direction: column;

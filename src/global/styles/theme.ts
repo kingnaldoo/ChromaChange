@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { ms } from "react-native-size-matters";
 import styled from "styled-components";
 
@@ -23,7 +23,7 @@ export const theme = {
   },
 };
 
-export const Container = styled(View)`
+export const Container = styled(ScrollView)`
   flex: 1;
   padding: 0 ${ms(20)}px;
 `;

@@ -11,7 +11,6 @@ import {
   LogoIcon,
   Title,
   LoginContent,
-  TopContent,
   Content,
 } from "./styles";
 
@@ -85,7 +84,6 @@ export function Login() {
 
       <LoginContent>
         <Content>
-          <TopContent>
             <CentralizeView>
               <LogoIcon />
               <Title>Login</Title>
@@ -115,7 +113,6 @@ export function Login() {
                 loading={loading}
               />
             </CentralizeView>
-          </TopContent>
         </Content>
       </LoginContent>
 
