@@ -1,25 +1,35 @@
-import React, { useCallback, useEffect } from "react";
+import React from "react";
 import {
   Scene,
   PerspectiveCamera,
-  Light,
-  AmbientLight,
   PCFSoftShadowMap,
   DirectionalLight,
 } from "three";
 import { Renderer } from "expo-three";
 import { ExpoWebGLRenderingContext, GLView,  } from "expo-gl";
-import { ColorText, ContainerHome, ContentHome, InlineInput } from "./styles";
 import { ms } from "react-native-size-matters";
-import { ButtonSubmit } from "../../../components";
+
+
+import { ButtonSubmit, Header } from "../../../components";
+import { updateFirebaseData } from "../../../services";
+import { initialState, useAuth } from "../../../context";
+import { removeStorage, updateStorage } from "../../../utils";
+
 import { CentralizeView } from "../../../global/styles/theme";
 import { cone, cube, dodecahedron } from "../../../assets/objects";
-import { updateFirebaseData } from "../../../services";
-import { useAuth } from "../../../context";
-import { updateStorage } from "../../../utils";
+
+import {
+  ColorText,
+  ContainerHome,
+  ContentHome,
+  InlineInput,
+  LogoutButton,
+  LogoutText
+} from "./styles";
 
 export function Home() {
-  const {firestore, user} = useAuth();
+  const {firestore, user, auth, setUser} = useAuth();
+
   const [cubeColor, setCubeColor] = React.useState("");
   const [coneColor, setConeColor] = React.useState("");
   const [dodecahedronColor, setDodecahedronColor] = React.useState("");
@@ -68,9 +78,14 @@ export function Home() {
     render();
   };
 
-  const handleApplyColor = useCallback(() => {
-    setLoading(true);
+  const handleLogout = React.useCallback(async () => {
+    removeStorage("user").then(() => {
+      setUser(initialState);
+    })
+  }, [])
 
+  const handleApplyColor = React.useCallback(() => {
+    setLoading(true);
 
     if(!cube.material.color.set(cubeColor).isColor ||
     !cone.material.color.set(coneColor).isColor ||
@@ -99,12 +114,18 @@ export function Home() {
       }).finally(() => {
         setLoading(false);
       });
-
-
-  }, [cubeColor, coneColor, dodecahedronColor])
+  }, [])
 
   return (
     <ContainerHome>
+      <Header
+        title="Home"
+        headerRight={
+          <LogoutButton onPress={handleLogout}>
+            <LogoutText>Sair</LogoutText>
+          </LogoutButton>
+        }
+      />
       <ContentHome>
         <GLView
         onContextCreate={onCreateContext}
