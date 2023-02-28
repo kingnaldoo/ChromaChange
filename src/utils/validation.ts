@@ -1,29 +1,22 @@
 export function validateInputText(text: string): string {
-  if (text === "") {
-    return "Nome é obrigatório";
-  }
-  return "";
+  return (/^\s*$/.test(text)) ? "Nome é obrigatório" : ""
 }
 
 export function validateInputEmail(email: string): string {
-  if (email === "") {
-    return "Email é obrigatório";
-  }
-  if (!email.includes("@")) {
-    return "Inclua um @ no email.";
-  }
-  return "";
+  const emailRegex = /^\S+@\S+\.\S+$/;
+  return !emailRegex.test(email) ? "Email inválido." : "";
 }
 
 export function validateInputPassword(
   password1: string,
   password2: string
 ): string {
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,}$/;
   if (password1 === "") {
     return "Senha é obrigatória";
   }
-  if (password1.length < 6) {
-    return "Senha deve ter no mínimo 6 caracteres";
+  if (!passwordRegex.test(password1)) {
+    return "Senha deve ter pelo menos 6 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial (!@#$%^&*)";
   }
   if (password1 !== password2) {
     return "Senhas não conferem";
