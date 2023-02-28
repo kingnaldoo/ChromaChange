@@ -87,15 +87,12 @@ export function Home() {
     })
   }, [])
 
-  const handleApplyColor = React.useCallback(() => {
+  const handleApplyColor = React.useCallback(async () => {
     setLoading(true);
 
-    if(!cube.material.color.set(cubeColor).isColor ||
-    !cone.material.color.set(coneColor).isColor ||
-    !dodecahedron.material.color.set(dodecahedronColor).isColor) {
-      setLoading(false);
-      return;
-    };
+    cube.material.color.set(cubeColor);
+    cone.material.color.set(coneColor);
+    dodecahedron.material.color.set(dodecahedronColor);
 
     updateFirebaseData('users', auth.userId, {
         colors: {
@@ -117,7 +114,7 @@ export function Home() {
       }).finally(() => {
         setLoading(false);
       });
-  }, [])
+  }, [cubeColor, coneColor, dodecahedronColor])
 
   return (
     <ContainerHome>
