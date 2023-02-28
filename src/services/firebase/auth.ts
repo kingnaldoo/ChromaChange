@@ -1,5 +1,4 @@
-
-import { Auth, getAuth, signInWithEmailAndPassword, signOut as fbSignOut } from "firebase/auth";
+import { Auth, signInWithEmailAndPassword, signOut as fbSignOut } from "firebase/auth";
 
 export async function signIn(auth: Auth, email: string, password: string) {
   const value = await signInWithEmailAndPassword(auth, email, password);

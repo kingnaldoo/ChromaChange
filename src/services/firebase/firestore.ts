@@ -1,27 +1,22 @@
-// import {} from 'firebase/firestore';
+import { doc, Firestore, getDoc, setDoc, updateDoc } from "firebase/firestore";
 
-// export async function setFirebaseData(
-//   collection: string,
-//   docId: string,
-//   data: any
-// ) {
-//   const value = await firestore().collection(collection).doc(docId).set(data);
-//   return value;
-// }
+export async function setFirebaseData(
+{ firestore, collection, docId, data }: { firestore: Firestore; collection: string; docId: string; data: any; }) {
+  const value = await setDoc(doc(firestore, collection, docId), data);
+  return value;
+}
 
-// export async function getFirebaseData(collection: string, docId: string) {
-//   const value = await firestore().collection(collection).doc(docId).get();
-//   return value;
-// }
+export async function getFirebaseData(firestore: Firestore, collection: string, docId: string) {
+  const value = await getDoc(doc(firestore, collection, docId));
+  return value;
+}
 
-// export async function updateFirebaseData(
-//   collection: string,
-//   docId: string | undefined,
-//   data: any
-// ) {
-//   const value = await firestore()
-//     .collection(collection)
-//     .doc(docId)
-//     .update(data);
-//   return value;
-// }
+export async function updateFirebaseData(
+  firestore: Firestore,
+  collection: string,
+  docId: string,
+  data: any
+) {
+  const value = await updateDoc(doc(firestore, collection, docId), data);
+  return value;
+}

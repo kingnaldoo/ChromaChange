@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { PrivateRoutes } from "./private.routes";
 import { PublicRoutes } from "./public.routes";
-import { useAuth } from "../context";
+import { initialState, useAuth } from "../context";
 import { getStorage } from "../utils";
 
 export default function Routes() {
@@ -11,14 +11,14 @@ export default function Routes() {
   useEffect(() => {
     (async () => {
       await getStorage("user").then((response) => {
-        response ? setUser(response) : setUser(null);
+        response ? setUser(response) : setUser(initialState);
       });
     })();
   }, []);
 
   return (
     <NavigationContainer>
-      {true ? <PrivateRoutes /> : <PublicRoutes />}
+      {user.userId ? <PrivateRoutes /> : <PublicRoutes />}
     </NavigationContainer>
   );
 }

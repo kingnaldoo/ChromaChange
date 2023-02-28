@@ -21,13 +21,13 @@ import {
   validateInputPassword,
 } from "../../../utils";
 
-import { signIn } from "../../../services";
+import { getFirebaseData, signIn } from "../../../services";
 
 import { CentralizeView } from "../../../global/styles/theme";
 
 export function Login() {
   const { navigate } = useNavigation();
-  const { setUser, auth } = useAuth();
+  const { setUser, auth, firestore } = useAuth();
 
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -56,13 +56,19 @@ export function Login() {
 
     await signIn(auth, email, password)
       .then((value) => {
-        const user: User = {
-          userId: value.user.uid,
-          email: value.user.email || "",
-          password: password,
-        }
-        setStorage("user", user);
-        setUser(user);
+        getFirebaseData(firestore, 'users', value.user.uid).then((res) => {
+          const data = res.data();
+          const user: User = {
+            userId: data?.userId,
+            colors: data?.colors,
+          }
+
+          setStorage("user", user).then(() => {
+            console.log(user);
+
+            setUser(user);
+          });
+        })
       })
       .catch(() => {
         setModalErrorVisible(true);

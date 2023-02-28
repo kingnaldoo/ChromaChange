@@ -10,11 +10,16 @@ import { ms } from "react-native-size-matters";
 import { ButtonSubmit } from "../../../components";
 import { CentralizeView } from "../../../global/styles/theme";
 import { cone, cube, dodecahedron } from "../../../assets/objects";
+import { updateFirebaseData } from "../../../services";
+import { useAuth } from "../../../context";
+import { updateStorage } from "../../../utils";
 
 export function Home() {
+  const {firestore, user} = useAuth();
   const [cubeColor, setCubeColor] = React.useState("");
   const [coneColor, setConeColor] = React.useState("");
   const [dodecahedronColor, setDodecahedronColor] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
 
   const onCreateContext = async (gl: ExpoWebGLRenderingContext) => {
     const scene = new Scene();
@@ -56,10 +61,43 @@ export function Home() {
     render();
   };
 
+  // const verifyColors = useCallBack(() => {
+  //   if  ()
+  // }, [])
+
   const handleApplyColor = useCallback(() => {
-    cube.material.color.set(cubeColor);
-    cone.material.color.set(coneColor);
-    dodecahedron.material.color.set(dodecahedronColor);
+    setLoading(true);
+
+
+    if(!cube.material.color.set(cubeColor).isColor ||
+    !cone.material.color.set(coneColor).isColor ||
+    !dodecahedron.material.color.set(dodecahedronColor).isColor) {
+      setLoading(false);
+      return;
+    };
+
+    updateFirebaseData(firestore, 'users', user.userId, {
+        colors: {
+          cube: cubeColor,
+          cone: coneColor,
+          dodecahedron: dodecahedronColor
+        }
+      }).then(() => {
+        updateStorage('user', {
+          ...user,
+          colors: {
+            cube: cubeColor,
+            cone: coneColor,
+            dodecahedron: dodecahedronColor
+          }
+        })
+      }).catch((error) => {
+        console.log("Erro ao atualizar dados: ", error)
+      }).finally(() => {
+        setLoading(false);
+      });
+
+
   }, [cubeColor, coneColor, dodecahedronColor])
 
   return (
@@ -83,6 +121,7 @@ export function Home() {
         <ButtonSubmit
         title="Aplicar"
         onPress={handleApplyColor}
+        loading={loading}
       />
       </CentralizeView>
 
