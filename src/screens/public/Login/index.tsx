@@ -1,7 +1,5 @@
 import React, { useCallback } from "react";
 
-import { useAuth, User } from "../../../context";
-
 import { ButtonSubmit, Input, ModalError } from "../../../components";
 
 import {
@@ -22,9 +20,12 @@ import {
 import { getFirebaseData, signIn } from "../../../services";
 
 import { CentralizeView } from "../../../global/styles/theme";
+import { useDispatch } from "react-redux";
+import { setLogin } from "../../../redux/modules/auth/reducer";
+import { User } from "../../../@types";
 
 export function Login() {
-  const { setUser, auth, firestore } = useAuth();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -55,16 +56,16 @@ export function Login() {
 
     modalErrorVisible ? setLoadingModal(true) : setLoading(true);
 
-    await signIn(auth, email, password)
+    await signIn(email, password)
       .then((value) => {
-        getFirebaseData(firestore, 'users', value.user.uid).then((res) => {
+        getFirebaseData('users', value.user.uid).then((res) => {
           const data = res.data();
           const user: User = {
             userId: data?.userId,
             colors: data?.colors,
           }
           setStorage("user", user).then(() => {
-            setUser(user);
+            dispatch(setLogin(user));
           });
         }).catch(() => {
           setModalTitleError("Erro de Login");
@@ -94,7 +95,7 @@ export function Login() {
         setLoadingModal(false);
         setLoading(false);
       });
-  }, [checkErrors, email, modalErrorVisible, password, setUser]);
+  }, [checkErrors, email, modalErrorVisible, password, setLogin]);
 
   return (
     <ContainerLogin>

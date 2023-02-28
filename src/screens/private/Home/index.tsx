@@ -12,7 +12,6 @@ import { ms } from "react-native-size-matters";
 
 import { ButtonSubmit, Header } from "../../../components";
 import { updateFirebaseData } from "../../../services";
-import { initialState, useAuth } from "../../../context";
 import { removeStorage, updateStorage } from "../../../utils";
 
 import { CentralizeView } from "../../../global/styles/theme";
@@ -26,9 +25,13 @@ import {
   LogoutButton,
   LogoutText
 } from "./styles";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../redux/createStore";
+import { initialState, setLogin } from "../../../redux/modules/auth/reducer";
 
 export function Home() {
-  const {firestore, user, auth, setUser} = useAuth();
+  const dispatch = useDispatch();
+  const auth = useSelector((state: RootState) => state.auth);
 
   const [cubeColor, setCubeColor] = React.useState("");
   const [coneColor, setConeColor] = React.useState("");
@@ -80,7 +83,7 @@ export function Home() {
 
   const handleLogout = React.useCallback(async () => {
     removeStorage("user").then(() => {
-      setUser(initialState);
+      dispatch(setLogin(initialState));
     })
   }, [])
 
@@ -94,7 +97,7 @@ export function Home() {
       return;
     };
 
-    updateFirebaseData(firestore, 'users', user.userId, {
+    updateFirebaseData('users', auth.userId, {
         colors: {
           cube: cubeColor,
           cone: coneColor,
@@ -102,7 +105,7 @@ export function Home() {
         }
       }).then(() => {
         updateStorage('user', {
-          ...user,
+          ...auth,
           colors: {
             cube: cubeColor,
             cone: coneColor,
