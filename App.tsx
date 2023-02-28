@@ -7,8 +7,8 @@ import { useFonts } from "expo-font";
 import { Ubuntu_700Bold } from "@expo-google-fonts/ubuntu";
 import  { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 import Routes from "./src/routes";
-import { Context } from "./src/context";
 import { theme } from "./src/global/styles/theme";
+import { ReduxProvider } from "./src/redux";
 
 SplashScreen.preventAutoHideAsync()
   .then(result => console.log(`SplashScreen.preventAutoHideAsync() succeeded: ${result}`))
@@ -30,11 +30,11 @@ export default function App() {
   }, 2000);
 
 	return (
-		<Context>
+		<ReduxProvider>
       <StatusBar barStyle="light-content" backgroundColor={theme.colors.background} />
       <ThemeProvider theme={theme}>
         <Routes />
       </ThemeProvider>
-    </Context>
+    </ReduxProvider>
 	);
 }
