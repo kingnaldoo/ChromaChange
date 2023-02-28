@@ -1,11 +1,14 @@
-import { Auth, signInWithEmailAndPassword, signOut as fbSignOut } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut as fbSignOut } from "firebase/auth";
+import { firebaseApp } from "../../../firebase-config";
 
-export async function signIn(auth: Auth, email: string, password: string) {
+const auth = getAuth(firebaseApp);
+
+export async function signIn(email: string, password: string) {
   const value = await signInWithEmailAndPassword(auth, email, password);
   return value;
 }
 
-export async function signOut(auth: Auth) {
+export async function signOut() {
   const value = await fbSignOut(auth);
   return value;
 }
