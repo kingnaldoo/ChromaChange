@@ -1,4 +1,4 @@
-import { ScrollView, Text, TextInput } from "react-native";
+import { ScrollView, Text, TextInput, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { ms } from "react-native-size-matters";
 import styled from "styled-components";
@@ -12,12 +12,20 @@ export const ContentHome = styled(ScrollView)`
   flex: 1;
 `;
 
-export const ColorText = styled(TextInput)`
-  width: 100%;
-  color: ${({ theme }) => theme.colors.textWhite};
-  background-color: ${({ theme }) => theme.colors.background};
-  font-size: ${RFValue(15)}px;
+export const ColorText = styled(TextInput).attrs({
+  placeholderTextColor: "#70707096",
+})`
+  width: 32%;
+  color: ${({ theme }) => theme.colors.text};
+  background-color: ${({ theme }) => theme.colors.backgroundWhite};
+  font-size: ${RFValue(9)}px;
   border-bottom-width: 1px;
   border-bottom-color: ${({ theme }) => theme.colors.textGray};
   margin-bottom: ${ms(20)}px;
+  padding: 0 ${ms(5)}px;
+`;
+
+export const InlineInput = styled(View)`
+  flex-direction: row;
+  justify-content: space-between;
 `;

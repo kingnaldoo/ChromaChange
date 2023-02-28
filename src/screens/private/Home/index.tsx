@@ -2,10 +2,14 @@ import React, { useCallback, useEffect } from "react";
 import {
   Scene,
   PerspectiveCamera,
+  Light,
+  AmbientLight,
+  PCFSoftShadowMap,
+  DirectionalLight,
 } from "three";
 import { Renderer } from "expo-three";
 import { ExpoWebGLRenderingContext, GLView,  } from "expo-gl";
-import { ColorText, ContainerHome, ContentHome } from "./styles";
+import { ColorText, ContainerHome, ContentHome, InlineInput } from "./styles";
 import { ms } from "react-native-size-matters";
 import { ButtonSubmit } from "../../../components";
 import { CentralizeView } from "../../../global/styles/theme";
@@ -29,19 +33,22 @@ export function Home() {
       0.1,
       1000
     );
+    const light = new DirectionalLight();
     const renderer = new Renderer({ gl });
 
     renderer.setSize(gl.drawingBufferWidth, gl.drawingBufferHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = PCFSoftShadowMap;
 
-    camera.position.z = 4;
-    camera.position.y = -3;
-    cube.position.y = 0;
-    cone.position.y = -3;
-    dodecahedron.position.y = -6;
+    light.position.set(0, 0, 5);
+    camera.position.set(0, -3, 4);
+    cone.position.set(0, -3, 0);
+    dodecahedron.position.set(0, -6, 0);
 
     scene.add(cube);
     scene.add(cone);
     scene.add(dodecahedron);
+    scene.add(light);
 
     function render() {
       requestAnimationFrame(render);
@@ -60,10 +67,6 @@ export function Home() {
 
     render();
   };
-
-  // const verifyColors = useCallBack(() => {
-  //   if  ()
-  // }, [])
 
   const handleApplyColor = useCallback(() => {
     setLoading(true);
@@ -107,15 +110,17 @@ export function Home() {
         onContextCreate={onCreateContext}
         style={{ width: 400, height: 600, backgroundColor: "black", marginBottom: ms(20) }}
       />
-      <ColorText placeholder="Cor do cubo" placeholderTextColor="#70707096" onChangeText={
+      <InlineInput>
+        <ColorText placeholder="Cor do cubo" onChangeText={
         (value) => setCubeColor(value)
       }/>
-      <ColorText placeholder="Cor do cone" placeholderTextColor="#70707096" onChangeText={
+      <ColorText placeholder="Cor do cone" onChangeText={
         (value) => setConeColor(value)
       }/>
-      <ColorText placeholder="Cor do dodecaedro" placeholderTextColor="#70707096" onChangeText={
+      <ColorText placeholder="Cor do dodecaedro" onChangeText={
         (value) => setDodecahedronColor(value)
       }/>
+      </InlineInput>
 
       <CentralizeView>
         <ButtonSubmit
