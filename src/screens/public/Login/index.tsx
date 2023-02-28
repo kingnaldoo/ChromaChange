@@ -1,5 +1,4 @@
 import React, { useCallback } from "react";
-import { useNavigation } from "@react-navigation/native";
 
 import { useAuth, User } from "../../../context";
 
@@ -25,7 +24,6 @@ import { getFirebaseData, signIn } from "../../../services";
 import { CentralizeView } from "../../../global/styles/theme";
 
 export function Login() {
-  const { navigate } = useNavigation();
   const { setUser, auth, firestore } = useAuth();
 
   const [email, setEmail] = React.useState("");
@@ -34,8 +32,12 @@ export function Login() {
   const [loading, setLoading] = React.useState(false);
   const [loadingModal, setLoadingModal] = React.useState(false);
   const [modalErrorVisible, setModalErrorVisible] = React.useState(false);
+  const [modalTitleError, setModalTitleError] = React.useState("");
+  const [modalTextError, setModalTextError] = React.useState("");
 
-  const checkErrors = useCallback(() => {
+  const checkErrors = React.useCallback(() => {
+    setError(["", "", ""]);
+
     if (
       !validateInputEmail(email) &&
       !validateInputPassword(password, password)
@@ -48,7 +50,7 @@ export function Login() {
     ]);
   }, [email, password]);
 
-  const handleLogin = useCallback(async () => {
+  const handleLogin = React.useCallback(async () => {
     if (!checkErrors()) return;
 
     modalErrorVisible ? setLoadingModal(true) : setLoading(true);
@@ -61,16 +63,32 @@ export function Login() {
             userId: data?.userId,
             colors: data?.colors,
           }
-
           setStorage("user", user).then(() => {
-            console.log(user);
-
             setUser(user);
           });
-        })
+        }).catch(() => {
+          setModalTitleError("Erro de Login");
+          setModalTextError(
+            "Ocorreu um erro ao fazer o login, tente novamente mais tarde"
+          );
+          setModalErrorVisible(true);
+        });
       })
-      .catch(() => {
-        setModalErrorVisible(true);
+      .catch((err) => {
+        if(err.code === "auth/user-not-found") {
+          return setError(["Email não encontrado", ""]);
+        } else if (err.code === "auth/wrong-password") {
+          return setError(["", "Senha incorreta"]);
+        } else if (err.code === "auth/too-many-requests") {
+          setModalTitleError("Muitas tentativas");
+          setModalTextError("Você tentou fazer login muitas vezes, tente novamente mais tarde.");
+        } else {
+          setModalTitleError("Erro de Login");
+          setModalTextError(
+            "Ocorreu um erro ao fazer o login, tente novamente mais tarde"
+          );
+        }
+         setModalErrorVisible(true);
       })
       .finally(() => {
         setLoadingModal(false);
@@ -117,8 +135,8 @@ export function Login() {
       </LoginContent>
 
       <ModalError
-        title="Erro ao criar conta"
-        text="Ocorreu um erro ao criar sua conta, tente novamente mais tarde"
+        title={modalTitleError}
+        text={modalTextError}
         isVisible={modalErrorVisible}
         isLoading={loadingModal}
         onClose={() => setModalErrorVisible(false)}
