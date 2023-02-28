@@ -4,6 +4,7 @@
     "slug": "ChromaChange",
     "version": "1.0.0",
     "orientation": "portrait",
+    "statusBar": "light",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
     "splash": {
@@ -48,6 +49,12 @@
       "eas": {
         "projectId": "a00cd204-26e2-4e80-8b60-55595bf254d9"
       }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/a00cd204-26e2-4e80-8b60-55595bf254d9"
     }
   }
 }
