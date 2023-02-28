@@ -33,9 +33,9 @@ export function Home() {
   const dispatch = useDispatch();
   const auth = useSelector((state: RootState) => state.auth);
 
-  const [cubeColor, setCubeColor] = React.useState("");
-  const [coneColor, setConeColor] = React.useState("");
-  const [dodecahedronColor, setDodecahedronColor] = React.useState("");
+  const [cubeColor, setCubeColor] = React.useState(auth.colors.cube);
+  const [coneColor, setConeColor] = React.useState(auth.colors.cone);
+  const [dodecahedronColor, setDodecahedronColor] = React.useState(auth.colors.dodecahedron);
   const [loading, setLoading] = React.useState(false);
 
   const onCreateContext = async (gl: ExpoWebGLRenderingContext) => {
@@ -57,6 +57,10 @@ export function Home() {
     camera.position.set(0, -3, 4);
     cone.position.set(0, -3, 0);
     dodecahedron.position.set(0, -6, 0);
+
+    cube.material.color.set(cubeColor);
+    cone.material.color.set(coneColor);
+    dodecahedron.material.color.set(dodecahedronColor);
 
     scene.add(cube);
     scene.add(cone);

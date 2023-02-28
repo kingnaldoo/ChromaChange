@@ -6,6 +6,7 @@ import { getStorage } from "../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/createStore";
 import { initialState, setLogin } from "../redux/modules/auth/reducer";
+import { getFirebaseData } from "../services";
 
 export default function Routes() {
   const auth = useSelector((state: RootState) => state.auth);
@@ -14,7 +15,9 @@ export default function Routes() {
   useEffect(() => {
     (async () => {
       await getStorage("user").then((response) => {
-        dispatch(response ? setLogin(response) : setLogin(initialState));
+        console.log(response);
+
+        dispatch(setLogin(response));
       });
     })();
   }, []);

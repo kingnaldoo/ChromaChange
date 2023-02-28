@@ -4,9 +4,9 @@ import { User } from "../../../@types";
 export const initialState: User = {
   userId: "",
   colors: {
-    cube: "",
-    cone: "",
-    dodecahedron: "",
+    cube: "red",
+    cone: "green",
+    dodecahedron: "blue",
   },
 };
 
@@ -18,7 +18,11 @@ export const authSlice = createSlice({
       return {
         ...state,
         userId: payload.userId,
-        colors: payload.colors,
+        colors: {
+          cube: payload.colors.cube,
+          cone: payload.colors.cone,
+          dodecahedron: payload.colors.dodecahedron,
+        }
       };
     },
   },
