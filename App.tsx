@@ -1,13 +1,14 @@
 import React from "react";
+import { StatusBar } from "react-native";
 import { ThemeProvider } from "styled-components";
-import { theme } from "./src/global/styles/theme";
+
+import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from "expo-font";
 import { Ubuntu_700Bold } from "@expo-google-fonts/ubuntu";
 import  { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 import Routes from "./src/routes";
 import { Context } from "./src/context";
-import { StatusBar } from "react-native";
-import * as SplashScreen from 'expo-splash-screen';
+import { theme } from "./src/global/styles/theme";
 
 SplashScreen.preventAutoHideAsync()
   .then(result => console.log(`SplashScreen.preventAutoHideAsync() succeeded: ${result}`))
@@ -16,7 +17,8 @@ SplashScreen.preventAutoHideAsync()
 export default function App() {
   let [fontsLoaded] = useFonts({
     Ubuntu_700Bold,
-    Roboto_400Regular, Roboto_700Bold,
+    Roboto_400Regular,
+    Roboto_700Bold,
   });
 
   if (!fontsLoaded) {
@@ -26,7 +28,6 @@ export default function App() {
   setTimeout(async () => {
     await SplashScreen.hideAsync();
   }, 2000);
-
 
 	return (
 		<Context>
