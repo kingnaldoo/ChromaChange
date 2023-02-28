@@ -44,7 +44,16 @@ yarn start
 
 ## 🕹️ Como usar
 
-<p>Para utilizar, baixe o app do expo go para  <a href="https://play.google.com/store/apps/details?id=host.exp.exponent&hl=pt_BR&gl=US" target="_blank"> Android</a> ou para <a href="https://apps.apple.com/br/app/expo-go/id982107779" target="_blank"> ios</a> e escaneie o QRCode da aplicação</p>
+<p>Para utilizar, baixe o app do expo go para  <a href="https://play.google.com/store/apps/details?id=host.exp.exponent&hl=pt_BR&gl=US" target="_blank"> Android</a> ou para <a href="https://apps.apple.com/br/app/expo-go/id982107779" target="_blank"> ios</a> e escaneie o QRCode do app</p>
+
+<div>
+<h3>Android</h3>
+<img width="200" src="./assets/android-qrcode.svg">
+</div>
+<div>
+<h3>Ios</h3>
+<img width="200" src="./assets/ios-qrcode.svg">
+</div>
 
 ## 👾️ Tecnologias
 
