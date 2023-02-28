@@ -62,6 +62,7 @@ yarn start
 <img src="https://img.shields.io/badge/TypeScript-%233178C6?logo=TypeScript&style=for-the-badge&logoColor=white">
   <img src="https://img.shields.io/badge/React Native-%2361DAFB?logo=React&style=for-the-badge&logoColor=black">
 <img src="https://img.shields.io/badge/Firebase-%23FFCA28?logo=Firebase&style=for-the-badge&logoColor=black">
+<img src="https://img.shields.io/badge/Redux-%23764ABC?logo=Redux&style=for-the-badge&logoColor=white">
 <img src="https://img.shields.io/badge/Eslint-%234B32C3?logo=Eslint&style=for-the-badge&logoColor=white">
 <img src="https://img.shields.io/badge/Three.js-%23000000?logo=Three.js&style=for-the-badge&logoColor=white">
 <img src="https://img.shields.io/badge/Styled components-%23DB7093?logo=styled-components&style=for-the-badge&logoColor=white">
