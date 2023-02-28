@@ -30,8 +30,9 @@ export function Input({
   const [visiblePassword, setVisiblePassword] = useState(false);
 
   return (
-    <Container>
+    <Container accessible>
       <InputTitle
+        accessibilityLabel="Título do campo de texto"
         style={{
           color:
             type === "green" ? theme.colors.primary : theme.colors.textWhite,
@@ -46,6 +47,7 @@ export function Input({
         }}
       >
         <InputText
+          accessibilityLabel="Campo de Texto"
           placeholder={placeholder}
           placeholderTextColor="#A0A0B2"
           secureTextEntry={isPassword && !visiblePassword}
@@ -57,6 +59,8 @@ export function Input({
 
         {isPassword && (
           <ShowPasswordButton
+            accessibilityLabel={visiblePassword ? "Ocultar senha" : "Mostrar senha"}
+            onAccessibilityTap={() => setVisiblePassword(!visiblePassword)}
             onPress={() => setVisiblePassword(!visiblePassword)}
           >
             <Feather
@@ -67,7 +71,11 @@ export function Input({
           </ShowPasswordButton>
         )}
       </InputWrapper>
-      <AlertText>{error || " "}</AlertText>
+      <AlertText
+        accessibilityLabel={`Mensagem de erro: ${error}`}
+      >
+        {error || " "}
+      </AlertText>
     </Container>
   );
 }

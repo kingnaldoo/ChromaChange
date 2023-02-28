@@ -21,8 +21,10 @@ export function Header({ title, type, headerCenter, headerLeft, headerRight }: H
   const { goBack } = useNavigation();
 
   return (
-    <HeaderContainer>
-      <HeaderLeft>
+    <HeaderContainer accessible>
+      <HeaderLeft
+        accessibilityLabel={type === "goback" ? "Voltar" : ""}
+      >
         {headerLeft ||
           (type === "goback" && (
             <HeaderIcon name="arrow-left" onPress={goBack} />
@@ -30,7 +32,7 @@ export function Header({ title, type, headerCenter, headerLeft, headerRight }: H
       </HeaderLeft>
 
       <HeaderCenter>
-        {headerCenter || <HeaderTitle>{title}</HeaderTitle>}
+        {headerCenter || <HeaderTitle accessibilityLabel={title}>{title}</HeaderTitle>}
       </HeaderCenter>
 
       <HeaderRight>

@@ -51,19 +51,30 @@ export function ModalError({
   }, [isVisible]);
 
   return (
-    <Modal visible={visible} {...rest}>
+    <Modal accessible visible={visible} {...rest}>
       <ModalBackground>
         <ModalContent>
           <ContentContainer>
             <WrongIcon />
-            <TitleModal>{title}</TitleModal>
-            <TextModal>{text}</TextModal>
+            <TitleModal accessibilityLabel={title}>{title}</TitleModal>
+            <TextModal accessibilityLabel={text}>{text}</TextModal>
           </ContentContainer>
           <ButtonContainer>
-            <ButtonCancelModal onPress={onClose}>
+            <ButtonCancelModal
+              onPress={onClose}
+              onAccessibilityTap={() => onClose}
+              accessibilityLabel="Cancelar"
+              accessibilityHint="Clique para cancelar"
+            >
               <ButtonText>Cancelar</ButtonText>
             </ButtonCancelModal>
-            <ButtonConfirmModal onPress={onConfirm}>
+
+            <ButtonConfirmModal
+              accessibilityLabel="Tentar novamente"
+              accessibilityHint="Clique para tentar novamente"
+              onAccessibilityTap={() => onConfirm}
+              onPress={onConfirm}
+            >
               {isLoading ? (
                 <ActivityIndicator color="#fff" />
               ) : (

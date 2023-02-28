@@ -1,15 +1,13 @@
-import React, { useCallback } from "react";
+import React from "react";
 
-import { ButtonSubmit, Input, ModalError } from "../../../components";
+import { useDispatch } from "react-redux";
+import { setLogin } from "../../../redux/modules/auth/reducer";
 
 import {
-  ContainerLogin,
-  IconBackground,
-  LogoIcon,
-  Title,
-  LoginContent,
-  Content,
-} from "./styles";
+  ButtonSubmit,
+  Input,
+  ModalError
+} from "../../../components";
 
 import {
   setStorage,
@@ -20,9 +18,17 @@ import {
 import { getFirebaseData, signIn } from "../../../services";
 
 import { CentralizeView } from "../../../global/styles/theme";
-import { useDispatch } from "react-redux";
-import { setLogin } from "../../../redux/modules/auth/reducer";
+
 import { User } from "../../../@types";
+
+import {
+  ContainerLogin,
+  IconBackground,
+  LogoIcon,
+  Title,
+  LoginContent,
+  Content,
+} from "./styles";
 
 export function Login() {
   const dispatch = useDispatch();
@@ -101,14 +107,16 @@ export function Login() {
     <ContainerLogin>
       <IconBackground />
 
-      <LoginContent>
+      <LoginContent accessible>
         <Content>
             <CentralizeView>
-              <LogoIcon />
-              <Title>Login</Title>
+              <LogoIcon accessibilityLabel="ChromaChange logo"/>
+              <Title accessibilityLabel="Login">Login</Title>
             </CentralizeView>
 
             <Input
+              accessibilityLabel="Campo de Email"
+              accessibilityHint="Digite seu email"
               title="Email"
               placeholder="Ex: pedroaugusto@gmail.com"
               keyboardType="email-address"
@@ -117,6 +125,8 @@ export function Login() {
               error={error[0]}
             />
             <Input
+              accessibilityLabel="Campo de Senha"
+              accessibilityHint="Digite sua senha"
               title="Senha"
               placeholder="************"
               isPassword
@@ -127,8 +137,10 @@ export function Login() {
 
             <CentralizeView>
               <ButtonSubmit
+                accessibilityLabel="Botão de Login"
                 title="Fazer Login"
                 onPress={handleLogin}
+                onMagicTap={handleLogin}
                 loading={loading}
               />
             </CentralizeView>

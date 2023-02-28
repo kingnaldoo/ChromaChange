@@ -13,6 +13,7 @@ export function ButtonSubmit({ title, loading, ...rest }: ButtonSubmitProps) {
 
   return (
     <Container
+      accessible
       onPressIn={() => setClick(true)}
       onPressOut={() => setClick(false)}
       style={{

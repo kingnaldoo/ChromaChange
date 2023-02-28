@@ -121,7 +121,12 @@ export function Home() {
       <Header
         title="Home"
         headerRight={
-          <LogoutButton onPress={handleLogout}>
+          <LogoutButton
+            accessibilityLabel="Botão para sair da aplicação"
+            accessibilityHint="Toque para sair"
+            onAccessibilityTap={handleLogout}
+            onPress={handleLogout}
+          >
             <LogoutText>Sair</LogoutText>
           </LogoutButton>
         }
@@ -132,19 +137,36 @@ export function Home() {
         style={{ width: 400, height: 600, backgroundColor: "black", marginBottom: ms(20) }}
       />
       <InlineInput>
-        <ColorText placeholder="Cor do cubo" onChangeText={
-        (value) => setCubeColor(value)
-      }/>
-      <ColorText placeholder="Cor do cone" onChangeText={
-        (value) => setConeColor(value)
-      }/>
-      <ColorText placeholder="Cor do dodecaedro" onChangeText={
-        (value) => setDodecahedronColor(value)
-      }/>
+        <ColorText
+          accessibilityLabel="Campo para inserir a cor do cubo"
+          placeholder="Cor do cubo"
+          onChangeText={
+            (value) => setCubeColor(value)
+          }
+        />
+
+        <ColorText
+          accessibilityLabel="Campo para inserir a cor do cone"
+          placeholder="Cor do cone"
+          onChangeText={
+            (value) => setConeColor(value)
+          }
+        />
+
+        <ColorText
+          accessibilityLabel="Campo para inserir a cor do dodecaedro"
+          placeholder="Cor do dodecaedro"
+          onChangeText={
+            (value) => setDodecahedronColor(value)
+          }
+        />
       </InlineInput>
 
       <CentralizeView>
         <ButtonSubmit
+        accessibilityLabel="Botão para aplicar as cores"
+        accessibilityHint="Toque para aplicar as cores"
+        onAccessibilityTap={handleApplyColor}
         title="Aplicar"
         onPress={handleApplyColor}
         loading={loading}
