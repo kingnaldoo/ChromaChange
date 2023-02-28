@@ -7,6 +7,11 @@ import  { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 import Routes from "./src/routes";
 import { Context } from "./src/context";
 import { StatusBar } from "react-native";
+import * as SplashScreen from 'expo-splash-screen';
+
+SplashScreen.preventAutoHideAsync()
+  .then(result => console.log(`SplashScreen.preventAutoHideAsync() succeeded: ${result}`))
+  .catch(console.warn);
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -17,6 +22,11 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
+
+  setTimeout(async () => {
+    await SplashScreen.hideAsync();
+  }, 2000);
+
 
 	return (
 		<Context>
